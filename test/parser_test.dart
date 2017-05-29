@@ -96,4 +96,17 @@ void main() {
     expect(testValue, equals(30.0));
   });
 
+  testWidgets("Router correctly uses the NotFound handler", (WidgetTester tester) async {
+    String foundTest = "found";
+    Router router = new Router();
+    router.notFoundHandler = new Handler(type: HandlerType.function,
+        handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+          foundTest = "not found";
+        });
+    router.define("/test1", handler: null);
+    router.define("/test2", handler: null);
+    router.navigateTo(null, "/test3");
+    expect(foundTest, equals("not found"));
+  });
+
 }
