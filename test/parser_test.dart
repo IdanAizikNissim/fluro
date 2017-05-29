@@ -5,6 +5,7 @@
  * Copyright (c) 2017 Posse Productions LLC. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fluro/fluro.dart';
 
@@ -44,6 +45,55 @@ void main() {
       "phrase" : "hello world",
       "number" : "7",
     }));
+  });
+
+  testWidgets("Router uses correct route priority", (WidgetTester tester) async {
+    double testValue = 0.0;
+    Router router = new Router();
+    router.define("/test/static", handler: new Handler(type: HandlerType.function,
+        handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+          testValue = 10.0;
+        }));
+    router.define("/test/:common", handler: new Handler(type: HandlerType.function,
+        handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+          testValue = 20.0;
+        }));
+    router.navigateTo(null, "/test/static");
+    expect(testValue, equals(10.0));
+  });
+
+  testWidgets("Router uses correct named parameter route priority", (WidgetTester tester) async {
+    double testValue = 0.0;
+    Router router = new Router();
+    router.define("/test/static", handler: new Handler(type: HandlerType.function,
+        handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+          testValue = 10.0;
+        }));
+    router.define("/test/:common", handler: new Handler(type: HandlerType.function,
+        handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+          testValue = 20.0;
+        }));
+    router.navigateTo(null, "/test/hello");
+    expect(testValue, equals(20.0));
+  });
+
+  testWidgets("Router correctly uses named parameter route priority (nested)", (WidgetTester tester) async {
+    double testValue = 0.0;
+    Router router = new Router();
+    router.define("/test/static", handler: new Handler(type: HandlerType.function,
+        handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+          testValue = 10.0;
+        }));
+    router.define("/test/:common", handler: new Handler(type: HandlerType.function,
+        handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+          testValue = 20.0;
+        }));
+    router.define("/test/:common/nested", handler: new Handler(type: HandlerType.function,
+        handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+          testValue = 30.0;
+        }));
+    router.navigateTo(null, "/test/hello/nested");
+    expect(testValue, equals(30.0));
   });
 
 }
