@@ -48,6 +48,7 @@ class AppComponentState extends State<AppComponent> {
 
   @override
   Widget build(BuildContext context) {
+    print(">>>> ${window.defaultRouteName}");
     return new MaterialApp(
       title: 'Flutter Demo',
       initialRoute: null,

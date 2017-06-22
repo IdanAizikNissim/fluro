@@ -33,7 +33,7 @@ class HomeComponent extends StatelessWidget {
 
               },
               child: new Text(
-                "Try going to fluro://deeplink?path=/message&text=fluro%20rocks%21%21",
+                "Try going to fluro://link?path=/message&text=fluro%20rocks%21%21",
                 textAlign: TextAlign.center,
                 style: new TextStyle(
                   fontSize: 10.0,

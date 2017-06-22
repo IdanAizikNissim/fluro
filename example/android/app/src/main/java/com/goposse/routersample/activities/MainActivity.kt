@@ -30,15 +30,13 @@ class MainActivity : FlutterActivity() {
 	private fun checkForLinkEvent(intent: Intent) {
 		if (intent.action == Intent.ACTION_VIEW && intent.data != null) {
 			val path = intent.data.getQueryParameter("path")
-			val query = intent.data.getQueryParameter("query")
 			if (path != null) {
 				val passedObjs = mutableMapOf<String, Any>("path" to path)
-				if (query != null) {
-					passedObjs["query"] = query
-				}
+				Log.d(LOG_TAG, "Passed objs = $passedObjs")
 				deepLinkChannel?.invokeMethod("linkReceived", passedObjs)
 				flutterView.setInitialRoute(path)
 				Log.d(LOG_TAG, "Sent message to flutter: linkReceived=$path")
+				Log.d(LOG_TAG, "Set initial route: route=$path")
 			}
 		}
 	}
