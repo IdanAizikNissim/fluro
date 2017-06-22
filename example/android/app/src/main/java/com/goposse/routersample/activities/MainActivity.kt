@@ -22,8 +22,8 @@ class MainActivity : FlutterActivity() {
 		deepLinkChannel = MethodChannel(flutterView, Channels.DEEP_LINK_RECEIVED)
 	}
 
-	override fun onResume() {
-		super.onResume()
+	override fun onStart() {
+		super.onStart()
 		checkForLinkEvent(intent)
 	}
 
@@ -37,6 +37,7 @@ class MainActivity : FlutterActivity() {
 					passedObjs["query"] = query
 				}
 				deepLinkChannel?.invokeMethod("linkReceived", passedObjs)
+				flutterView.setInitialRoute(path)
 				Log.d(LOG_TAG, "Sent message to flutter: linkReceived=$path")
 			}
 		}

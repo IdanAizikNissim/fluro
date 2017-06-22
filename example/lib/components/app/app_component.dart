@@ -6,6 +6,7 @@
  * See LICENSE for distribution and usage details.
  */
 import '../../config/application.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluro/fluro.dart';
@@ -29,7 +30,7 @@ class AppComponentState extends State<AppComponent> {
     Routes.configureRoutes(router);
     Application.router = router;
     configureDeepLinker();
-    print("Configured channel receiver in flutter ..");
+    print("Configured channel receiver in flutter .. ${window.defaultRouteName}");
   }
 
 
@@ -49,6 +50,7 @@ class AppComponentState extends State<AppComponent> {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Flutter Demo',
+      initialRoute: null,
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
