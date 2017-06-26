@@ -10,6 +10,11 @@ import '../components/demo/demo_simple_component.dart';
 import 'package:flutter/painting.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:router_example/components/home/home_component.dart';
+
+var rootHandler = new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return new HomeComponent();
+});
 
 var demoRouteHandler = new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   String message = params["message"];
@@ -52,5 +57,5 @@ var demoFunctionHandler = new Handler(type: HandlerType.function,
     });
 
 var deepLinkHandler = new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-
+  return new DemoSimpleComponent(message: "hello", color: Colors.red);
 });

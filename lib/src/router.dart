@@ -37,7 +37,7 @@ class Router {
   }
 
   ///
-  void navigateTo(BuildContext context, String path, {TransitionType transition = TransitionType.native,
+  Route<Null> navigateTo(BuildContext context, String path, {TransitionType transition = TransitionType.native,
     Duration transitionDuration = const Duration(milliseconds: 250),
     RouteTransitionsBuilder transitionBuilder})
   {
@@ -45,7 +45,7 @@ class Router {
         transitionsBuilder: transitionBuilder, transitionDuration: transitionDuration);
     Route<Null> route = routeMatch.route;
     if (routeMatch.matchType == RouteMatchType.nonVisual) {
-      return;
+      return null;
     }
     if (route == null && notFoundHandler != null) {
       route = _notFoundRoute(context, path);
@@ -55,6 +55,7 @@ class Router {
     } else {
       print("No registered route was found to handle '$path'.");
     }
+    return route;
   }
 
   ///

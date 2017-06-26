@@ -48,13 +48,22 @@ class AppComponentState extends State<AppComponent> {
 
   @override
   Widget build(BuildContext context) {
-    print(">>>> ${window.defaultRouteName}");
+    var defaultRoute = window.defaultRouteName;
     return new MaterialApp(
       title: 'Flutter Demo',
       initialRoute: null,
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
+      onGenerateRoute: (RouteSettings settings) {
+        print("Matching $defaultRoute");
+        if (!defaultRoute.startsWith("/")) {
+          defaultRoute = "/$defaultRoute";
+        }
+        return Application.router
+            .matchRoute(context, defaultRoute)
+            .route;
+      },
       home: new HomeComponent(),
     );
   }

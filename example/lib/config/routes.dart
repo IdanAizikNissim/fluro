@@ -3,11 +3,13 @@ import './route_handlers.dart';
 
 class Routes {
 
+  static String demoRoot = "/";
   static String demoSimple = "/demo";
   static String demoFunc = "/demo/func";
   static String deepLink = "/message";
 
   static void configureRoutes(Router router) {
+    router.define(demoRoot, handler: rootHandler);
     router.define(demoSimple, handler: demoRouteHandler);
     router.define(demoFunc, handler: demoFunctionHandler);
     router.define(deepLink, handler: deepLinkHandler);
